@@ -1,27 +1,47 @@
-import { ToggleTheme } from "./ToggleTheme";
+import { useTheme } from "./hooks/useTheme";
+import { ToggleTheme } from "./components/custom/ToggleTheme";
+import { TodoInput } from "./components/custom/TodoInput";
+import { TodoList } from "./components/custom/TodoList";
+import { TodoFooter } from "./components/custom/TodoFooter";
+import { TodoFilter } from "./components/custom/TodoFilter";
 
 export function TodoApp() {
+  const { toggle } = useTheme();
   return (
     <>
-      <main className=" container flex min-h-screen min-w-screen flex-col text-center">
-        <h1 className="flex flex-col font-josefin text-6xl font-bold text-blue-500">
-          Todo
-        </h1>
-        <ToggleTheme></ToggleTheme>
+      <main
+        className="flex min-h-screen w-full flex-col items-center justify-start"
+        style={{
+          background: toggle
+            ? "url('/src/assets/images/bg-desktop-dark.jpg') top/100% 33vh no-repeat, var(--color-navy-950)"
+            : "url('/src/assets/images/bg-desktop-light.jpg') top/100% 33vh no-repeat, var(--color-gray-50)",
+        }}
+      >
+        <div className="container mt-18 max-w-xl px-4">
+          <header className="mb-12 flex w-full flex-row items-center justify-between">
+            <h1 className="flex flex-col text-4xl font-bold tracking-[.5em] text-white">
+              TODO
+            </h1>
+            <ToggleTheme></ToggleTheme>
+          </header>
 
-        
+          <div className="rounded-[5px] bg-gray-50 text-sm shadow-[0_35px_40px_-5px_rgba(0,0,0,0.4)] dark:bg-navy-900">
+            <TodoInput></TodoInput>
+          </div>
 
-        <div className="bg-check">
-          <p className="text-green-200 dark:text-navy-950">
-            Create a new todo...
+          <div className="mt-6 rounded-[5px] bg-gray-50 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] dark:bg-navy-900">
+            <TodoList></TodoList>
+            <TodoFooter></TodoFooter>
+          </div>
+
+          <div className="mt-4 flex items-center justify-center rounded-[5px] bg-gray-50 px-6 py-4 text-center shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] xs:hidden dark:bg-navy-900">
+            <TodoFilter></TodoFilter>
+          </div>
+
+          <p className="mt-10 text-center text-sm text-gray-600 dark:text-purple-600">
+            Drag and drop to reorder list
           </p>
-          <p>{/*Add number */} items left</p>
-          <p>All Active</p>
-          <p>Completed</p>
-          <p>Clear</p>
-          <p>Completed</p>
         </div>
-        <p>Drag and drop to reorder list</p>
       </main>
     </>
   );

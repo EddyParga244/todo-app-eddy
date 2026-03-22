@@ -15,34 +15,38 @@
 
 @theme {
   /* Primary */
-  --color-blue-500: oklch(0.65 0.2 255);
-  --background-image-check: linear-gradient(
-    to right,
-    oklch(0.8 0.18 200),
-    oklch(0.75 0.2 300)
-  );
+  --color-blue-500: oklch(0.6136 0.2052 262.21);
+    --background-image-check: linear-gradient(
+      to right,
+      oklch(0.8381 0.1241 217.53),
+      oklch(0.6554 0.2315 312.45)
+    );
 
   /* Light */
-  --color-gray-50: oklch(0.98 0 0);
-  --color-purple-300: oklch(0.85 0.06 260);
-  --color-gray-300: oklch(0.85 0.01 260);
-  --color-gray-600: oklch(0.55 0.02 260);
-  --color-navy-850: oklch(0.35 0.04 255);
+  --color-gray-50: oklch(0.9848 0 0);
+  --color-purple-300: oklch(0.8538 0.0373 280.55);
+  --color-gray-300: oklch(0.8676 0.0109 280.13);
+  --color-gray-600: oklch(0.6704 0.024544 282.4634);
+  --color-navy-850: oklch(0.4239 0.0517 279.93);
 
   /* Dark */
-  --color-navy-950: oklch(0.12 0.02 255);
-  --color-navy-900: oklch(0.18 0.03 255);
-  --color-purple-100: oklch(0.92 0.03 260);
-  --color-purple-600: oklch(0.55 0.05 260);
-  --color-purple-700: oklch(0.45 0.04 260);
-  --color-purple-800: oklch(0.32 0.03 260);
+  --color-navy-950: oklch(0.2133 0.0217 280.34);
+  --color-navy-900: oklch(0.2802 0.0393 279.54);
+  --color-purple-100: oklch(0.9242 0.017 282.79);
+  --color-purple-600: oklch(0.4958 0.0514 280.3);
+  --color-purple-700: oklch(0.4362 0.0365 278.88);
+  --color-purple-800: oklch(0.3547 0.0305 282.36);
 
   --font-josefin: "josefin-sans", sans-serif;
+  --background-image-light: url("/src/assets/images/bg-desktop-light.jpg");
+  --background-image-dark: url("/src/assets/images/bg-desktop-dark.jpg");
+
+  --breakpoint-xs: 425px;
 }
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: "Geist Variable", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -157,7 +161,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply font-josefin text-foreground;
   }
   html {
     @apply font-sans;
