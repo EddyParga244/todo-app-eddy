@@ -1,4 +1,3 @@
-import { useTheme } from "./hooks/useTheme";
 import { ToggleTheme } from "./components/custom/ToggleTheme";
 import { TodoInput } from "./components/custom/TodoInput";
 import { TodoList } from "./components/custom/TodoList";
@@ -6,17 +5,9 @@ import { TodoFooter } from "./components/custom/TodoFooter";
 import { TodoFilter } from "./components/custom/TodoFilter";
 
 export function TodoApp() {
-  const { toggle } = useTheme();
   return (
     <>
-      <main
-        className="flex min-h-screen w-full flex-col items-center justify-start"
-        style={{
-          background: toggle
-            ? "url('/src/assets/images/bg-desktop-dark.jpg') top/100% 33vh no-repeat, var(--color-navy-950)"
-            : "url('/src/assets/images/bg-desktop-light.jpg') top/100% 33vh no-repeat, var(--color-gray-50)",
-        }}
-      >
+      <main className="flex min-h-screen w-full flex-col items-center justify-start">
         <div className="container mt-18 max-w-xl px-4">
           <header className="mb-12 flex w-full flex-row items-center justify-between">
             <h1 className="flex flex-col text-4xl font-bold tracking-[.5em] text-white">

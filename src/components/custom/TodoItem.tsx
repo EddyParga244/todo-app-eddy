@@ -42,7 +42,7 @@ export const TodoItem = ({ todo, toggleTodo, deleteTodo }: Props) => {
         <img
           className="visible cursor-pointer md:invisible md:group-hover:visible"
           onClick={handleDelete}
-          src="/src/assets/images/icon-cross.svg"
+          src="/todo-app-eddy/assets/images/icon-cross.svg"
           alt=""
         />
       </div>

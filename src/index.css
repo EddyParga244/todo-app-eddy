@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "josefin-sans";
-  src: url("/src/assets/fonts/JosefinSans-VariableFont_wght.ttf")
+  src: url("/todo-app-eddy/assets/fonts/JosefinSans-VariableFont_wght.ttf")
     format("truetype");
   font-display: swap;
   font-weight: 100 700;
@@ -16,11 +16,11 @@
 @theme {
   /* Primary */
   --color-blue-500: oklch(0.6136 0.2052 262.21);
-    --background-image-check: linear-gradient(
-      to right,
-      oklch(0.8381 0.1241 217.53),
-      oklch(0.6554 0.2315 312.45)
-    );
+  --background-image-check: linear-gradient(
+    to right,
+    oklch(0.8381 0.1241 217.53),
+    oklch(0.6554 0.2315 312.45)
+  );
 
   /* Light */
   --color-gray-50: oklch(0.9848 0 0);
@@ -38,8 +38,10 @@
   --color-purple-800: oklch(0.3547 0.0305 282.36);
 
   --font-josefin: "josefin-sans", sans-serif;
-  --background-image-light: url("/src/assets/images/bg-desktop-light.jpg");
-  --background-image-dark: url("/src/assets/images/bg-desktop-dark.jpg");
+  --background-image-light: url("/todo-app-eddy/assets/images/bg-desktop-light.jpg");
+  --background-image-dark: url("/todo-app-eddy/assets/images/bg-desktop-dark.jpg");
+  --background-image-light-mobile: url("/todo-app-eddy/assets/images/bg-mobile-light.jpg");
+  --background-image-dark-mobile: url("/todo-app-eddy/assets/images/bg-mobile-dark.jpg");
 
   --breakpoint-xs: 425px;
 }
@@ -160,10 +162,38 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply font-josefin text-foreground;
   }
+
   html {
     @apply font-sans;
+  }
+}
+
+main {
+  background:
+    var(--background-image-light) top/100% 33vh no-repeat,
+    var(--color-gray-50);
+}
+
+.dark main {
+  background:
+    var(--background-image-dark) top/100% 33vh no-repeat,
+    var(--color-navy-950);
+}
+
+@media screen and (max-width: 425px) {
+  main {
+    background:
+      var(--background-image-light-mobile) top/100% 33vh no-repeat,
+      var(--color-gray-50);
+  }
+
+  .dark main {
+    background:
+      var(--background-image-dark-mobile) top/100% 33vh no-repeat,
+      var(--color-navy-950);
   }
 }
