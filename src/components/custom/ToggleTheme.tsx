@@ -6,6 +6,8 @@ export const ToggleTheme = () => {
 
   return (
     <Button
+      aria-label={toggle ? "Switch to light mode" : "Switch to dark mode"}
+      aria-pressed={toggle}
       variant="ghost"
       size="icon"
       className="hover:bg-transparent dark:hover:bg-transparent"
@@ -15,13 +17,13 @@ export const ToggleTheme = () => {
         <img
           className="h-5 w-5"
           src="/todo-app-eddy/assets/images/icon-moon.svg"
-          alt="Dark mode"
+          alt=""
         />
       ) : (
         <img
           className="h-5 w-5"
           src="/todo-app-eddy/assets/images/icon-sun.svg"
-          alt="Light mode"
+          alt=""
         />
       )}
     </Button>

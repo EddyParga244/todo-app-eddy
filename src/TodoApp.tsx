@@ -3,11 +3,19 @@ import { TodoInput } from "./components/custom/TodoInput";
 import { TodoList } from "./components/custom/TodoList";
 import { TodoFooter } from "./components/custom/TodoFooter";
 import { TodoFilter } from "./components/custom/TodoFilter";
+import { useTodo } from "./hooks/useTodo";
 
 export function TodoApp() {
+  const { announcement } = useTodo();
   return (
     <>
       <main className="flex min-h-screen w-full flex-col items-center justify-start">
+        <a
+          href="#todo-input"
+          className="sr-only fixed z-1 bg-gray-50 px-6 py-4 text-gray-600 focus:not-sr-only dark:bg-navy-900 dark:text-purple-600"
+        >
+          Skip to content
+        </a>
         <div className="container mt-18 max-w-xl px-4">
           <header className="mb-12 flex w-full flex-row items-center justify-between">
             <h1 className="flex flex-col text-4xl font-bold tracking-[.5em] text-white">
@@ -31,6 +39,9 @@ export function TodoApp() {
 
           <p className="mt-10 text-center text-sm text-gray-600 dark:text-purple-600">
             Drag and drop to reorder list
+          </p>
+          <p aria-live="polite" className="sr-only">
+            {announcement}
           </p>
         </div>
       </main>
