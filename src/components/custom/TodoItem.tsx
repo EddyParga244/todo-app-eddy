@@ -74,6 +74,7 @@ export const TodoItem = ({ todo }: Props) => {
           className={`visible cursor-pointer md:invisible md:group-hover:visible ${isFocused ? "md:visible" : ""}`}
           onClick={handleDelete}
           aria-label={`Delete ${todo.text}`}
+          data-testid="deleteCross"
         >
           <img src="/todo-app-eddy/assets/images/icon-cross.svg" alt="" />
         </button>
