@@ -4,6 +4,7 @@ import { TodoList } from "./components/custom/TodoList";
 import { TodoFooter } from "./components/custom/TodoFooter";
 import { TodoFilter } from "./components/custom/TodoFilter";
 import { TodoAnnouncement } from "./components/custom/TodoAnnouncement";
+import { TodoSettings } from "./components/custom/TodoSettings";
 
 export function TodoApp() {
   return (
@@ -21,6 +22,7 @@ export function TodoApp() {
               TODO
             </h1>
             <ToggleTheme></ToggleTheme>
+            <TodoSettings></TodoSettings>
           </header>
 
           <div className="rounded-[5px] bg-gray-50 text-sm shadow-[0_35px_40px_-5px_rgba(0,0,0,0.4)] dark:bg-navy-900">
