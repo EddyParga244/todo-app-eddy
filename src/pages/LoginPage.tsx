@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,18 +11,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { validatePassword } from "@/utils/validatePassword";
 
 export const LoginPage = () => {
   const { Login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    const error = validatePassword(password);
+    if (error) {
+      setPasswordError(error);
+      return;
+    }
     try {
+      setPasswordError("");
       await Login(email, password);
       navigate("/");
     } catch (error) {
@@ -31,47 +39,70 @@ export const LoginPage = () => {
   return (
     <>
       <main className="flex min-h-screen items-center justify-center font-josefin">
-        <Card className="flex flex-col gap-6">
+        <Card className="flex w-full max-w-lg flex-col gap-6 bg-gray-50 p-6 dark:bg-navy-900">
           <CardHeader>
-            <CardTitle>Login to your account</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-navy-850 dark:text-purple-100">
+              Login to your account
+            </CardTitle>
+            <CardDescription className="text-gray-600 dark:text-purple-600">
               Enter your email below to login to your account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form
+              className="w-full max-w-md p-2"
               onSubmit={(e) => {
                 e.preventDefault();
                 handleLogin();
               }}
             >
-              <Label>Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="m@example.com"
-                required
-              />
-              <div className="flex items-center">
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
+              <div className="flex flex-col gap-2">
+                <Label className="text-navy-850 dark:text-purple-100">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="m@example.com"
+                  required
+                  className="border-purple-300 bg-gray-50 dark:border-purple-800 dark:bg-navy-900"
+                />
               </div>
-              <Label>Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
 
-              <Button type="submit">Login</Button>
+              <div className="flex items-center">
+                <Link
+                  to="/register"
+                  className="ml-auto inline-block text-sm text-navy-850 underline-offset-4 hover:underline dark:text-purple-100"
+                >
+                  Don't have an account?
+                </Link>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label className="text-navy-850 dark:text-purple-100">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                  className="border-purple-300 bg-gray-50 dark:border-purple-800 dark:bg-navy-900"
+                />
+                {passwordError && (
+                  <p className="text-sm text-red-500">{passwordError}</p>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                className="mt-6 w-full cursor-pointer bg-green-600 text-white hover:bg-green-400"
+              >
+                Login
+              </Button>
             </form>
           </CardContent>
         </Card>

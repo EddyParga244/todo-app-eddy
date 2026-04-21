@@ -32,7 +32,10 @@ todoApi.interceptors.response.use(
     // Check if the error status is 401 (Unauthorized)
     if (error.response && error.response.status === 401) {
       // Attempt token refresh
-      if (!originalRequest._retry) {
+      if (
+        !originalRequest._retry &&
+        !originalRequest.url.includes("/api/auth/refresh")
+      ) {
         originalRequest._retry = true; // Avoid infinite loops
         try {
           const newToken = await refreshToken();
@@ -40,6 +43,7 @@ todoApi.interceptors.response.use(
           return todoApi(originalRequest); // Retry the original request
         } catch (refreshError) {
           localStorage.removeItem("token");
+          window.dispatchEvent(new Event("auth:logout"));
           return Promise.reject(refreshError);
         }
       }

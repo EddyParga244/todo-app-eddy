@@ -57,6 +57,11 @@ export const AuthContextProvider = ({
     checkAuth();
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("auth:logout", clearAuth);
+    return () => window.removeEventListener("auth:logout", clearAuth);
+  }, []);
+
   const Login = async (email: string, password: string) => {
     const response = await todoApi.post("/api/auth/login", { email, password });
     const token = response.data.access_token;

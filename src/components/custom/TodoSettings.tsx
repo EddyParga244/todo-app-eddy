@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { validatePassword } from "@/utils/validatePassword";
 
 export const TodoSettings = () => {
   const { Logout, clearAuth } = useAuth();
@@ -30,6 +31,7 @@ export const TodoSettings = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [deletePassword, setDeletePassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleLogout = () => {
     try {
@@ -41,7 +43,13 @@ export const TodoSettings = () => {
   };
 
   const handleChangePassword = async () => {
+    const error = validatePassword(newPassword);
+    if (error) {
+      setPasswordError(error);
+      return;
+    }
     try {
+      setPasswordError("");
       await todoApi.patch("/api/auth/change-password", {
         current_password: currentPassword,
         new_password: newPassword,
@@ -83,7 +91,7 @@ export const TodoSettings = () => {
           ></Settings>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="flex flex-col gap-2 border-none bg-transparent shadow-none focus:ring-0 focus:ring-offset-0">
+      <DropdownMenuContent className="flex w-full flex-row flex-wrap gap-2 border-none bg-transparent shadow-none focus:ring-0 focus:ring-offset-0 md:flex-col">
         <Button
           className="cursor-pointer bg-red-600 text-white"
           onClick={handleLogout}
@@ -97,28 +105,41 @@ export const TodoSettings = () => {
               <UserRoundPen></UserRoundPen> Change Password
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="bg-gray-50 dark:bg-navy-900">
             <DialogHeader>
-              <DialogTitle>Change Password</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="flex w-full max-w-lg flex-col gap-6 text-navy-850 dark:text-purple-100">
+                Change Password
+              </DialogTitle>
+              <DialogDescription className="text-gray-600 dark:text-purple-600">
                 Enter your current and new password
               </DialogDescription>
             </DialogHeader>
-            <Label>Current Password</Label>
+            <Label className="text-navy-850 dark:text-purple-100">
+              Current Password
+            </Label>
             <Input
               type="password"
               value={currentPassword}
               onChange={(event) => setCurrentPassword(event.target.value)}
+              className="border-purple-300 bg-gray-50 dark:border-purple-800 dark:bg-navy-900"
             />
 
-            <Label>New Password</Label>
+            <Label className="text-navy-850 dark:text-purple-100">
+              New Password
+            </Label>
             <Input
               type="password"
               value={newPassword}
               onChange={(event) => setNewPassword(event.target.value)}
+              className="border-purple-300 bg-gray-50 dark:border-purple-800 dark:bg-navy-900"
             />
-            <DialogFooter>
-              <Button variant="outline">Cancel</Button>
+            {passwordError && (
+              <p className="text-sm text-red-500">{passwordError}</p>
+            )}
+            <DialogFooter className="dark:bg-navy-950">
+              <Button variant="outline" className="cursor-pointer">
+                Cancel
+              </Button>
               <Button
                 className="cursor-pointer bg-green-600 text-white"
                 onClick={handleChangePassword}
@@ -135,20 +156,25 @@ export const TodoSettings = () => {
               <Trash></Trash>Delete Account
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="bg-gray-50 dark:bg-navy-900">
             <DialogHeader>
-              <DialogTitle>Delete Account</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="flex w-full max-w-lg flex-col gap-6 text-navy-850 dark:text-purple-100">
+                Delete Account
+              </DialogTitle>
+              <DialogDescription className="text-gray-600 dark:text-purple-600">
                 WARNING: This action is permanent!
               </DialogDescription>
             </DialogHeader>
-            <Label>Password</Label>
+            <Label className="text-navy-850 dark:text-purple-100">
+              Password
+            </Label>
             <Input
               type="password"
               value={deletePassword}
               onChange={(event) => setDeletePassword(event.target.value)}
+              className="border-purple-300 bg-gray-50 dark:border-purple-800 dark:bg-navy-900"
             />
-            <DialogFooter>
+            <DialogFooter className="dark:bg-navy-950">
               <Button variant="outline">Cancel</Button>
               <Button
                 className="cursor-pointer bg-red-600 text-white"
