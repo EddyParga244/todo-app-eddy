@@ -1,17 +1,20 @@
 import { TodoContextProvider } from "@/context/TodoContext";
-import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, test } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { TodoFilter } from "./TodoFilter";
 import { TodoInput } from "./TodoInput";
 import { TodoList } from "./TodoList";
 import userEvent from "@testing-library/user-event";
+import { todoApi } from "@/api/todoApi";
+
+vi.mock("@/api/todoApi");
 
 describe("TodoFilter", () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  test("should render the filters", () => {
+  test("should render the filters", async () => {
     render(
       <TodoContextProvider>
         <TodoFilter></TodoFilter>
@@ -20,11 +23,21 @@ describe("TodoFilter", () => {
     const filter = screen.getByRole("tablist");
     const filterList = screen.getAllByRole("tab");
 
-    expect(filter).toBeInTheDocument();
-    expect(filterList).toHaveLength(3);
+    await waitFor(() => {
+      expect(filter).toBeInTheDocument();
+      expect(filterList).toHaveLength(3);
+    });
   });
 
   test(`should the "Active" filter work correctly`, async () => {
+    vi.mocked(todoApi.get).mockResolvedValueOnce({
+      data: [
+        { id: "0", text: "Pick up some milk", completed: false },
+        { id: "1", text: "Pick up some butter", completed: true },
+        { id: "2", text: "Pick up some eggs", completed: true },
+        { id: "3", text: "Pick up some vegetables", completed: false },
+      ],
+    });
     render(
       <TodoContextProvider>
         <TodoInput></TodoInput>
@@ -32,28 +45,46 @@ describe("TodoFilter", () => {
         <TodoFilter></TodoFilter>
       </TodoContextProvider>,
     );
-    const user = userEvent.setup();
+    // const user = userEvent.setup();
     const filterList = screen.getAllByRole("tab");
-    const input = screen.getByRole("textbox");
+    // const input = screen.getByRole("textbox");
 
-    await user.type(input, "Pick up some milk {Enter}");
-    await user.type(input, "Pick up some butter {Enter}");
-    await user.type(input, "Pick up some eggs {Enter}");
-    await user.type(input, "Pick up some vegetables {Enter}");
-    const checkbox = screen.getAllByRole("checkbox");
+    // await user.type(input, "Pick up some milk {Enter}");
+    // await user.type(input, "Pick up some butter {Enter}");
+    // await user.type(input, "Pick up some eggs {Enter}");
+    // await user.type(input, "Pick up some vegetables {Enter}");
 
-    await userEvent.click(checkbox[1]);
-    await userEvent.click(checkbox[2]);
+    await waitFor(() => {
+      expect(screen.getByText("Pick up some milk")).toBeInTheDocument();
+    });
+
+    const milk = screen.getByText("Pick up some milk");
+    const butter = screen.getByText("Pick up some butter");
+    const eggs = screen.getByText("Pick up some eggs");
+    const vegetables = screen.getByText("Pick up some vegetables");
+
+    // const checkbox = screen.getAllByRole("checkbox");
+
+    // await userEvent.click(checkbox[1]);
+    // await userEvent.click(checkbox[2]);
 
     await userEvent.click(filterList[1]);
 
-    expect(checkbox[0]).toBeInTheDocument();
-    expect(checkbox[1]).not.toBeInTheDocument();
-    expect(checkbox[2]).not.toBeInTheDocument();
-    expect(checkbox[3]).toBeInTheDocument();
+    expect(milk).toBeInTheDocument();
+    expect(butter).not.toBeInTheDocument();
+    expect(eggs).not.toBeInTheDocument();
+    expect(vegetables).toBeInTheDocument();
   });
 
   test(`should the "Completed" filter work correctly`, async () => {
+    vi.mocked(todoApi.get).mockResolvedValueOnce({
+      data: [
+        { id: "0", text: "Pick up some milk", completed: false },
+        { id: "1", text: "Pick up some butter", completed: true },
+        { id: "2", text: "Pick up some eggs", completed: true },
+        { id: "3", text: "Pick up some vegetables", completed: false },
+      ],
+    });
     render(
       <TodoContextProvider>
         <TodoInput></TodoInput>
@@ -61,28 +92,45 @@ describe("TodoFilter", () => {
         <TodoFilter></TodoFilter>
       </TodoContextProvider>,
     );
-    const user = userEvent.setup();
+    // const user = userEvent.setup();
     const filterList = screen.getAllByRole("tab");
-    const input = screen.getByRole("textbox");
+    // const input = screen.getByRole("textbox");
 
-    await user.type(input, "Pick up some milk {Enter}");
-    await user.type(input, "Pick up some butter {Enter}");
-    await user.type(input, "Pick up some eggs {Enter}");
-    await user.type(input, "Pick up some vegetables {Enter}");
-    const checkbox = screen.getAllByRole("checkbox");
+    // await user.type(input, "Pick up some milk {Enter}");
+    // await user.type(input, "Pick up some butter {Enter}");
+    // await user.type(input, "Pick up some eggs {Enter}");
+    // await user.type(input, "Pick up some vegetables {Enter}");
+    // const checkbox = screen.getAllByRole("checkbox");
 
-    await userEvent.click(checkbox[1]);
-    await userEvent.click(checkbox[2]);
+    await waitFor(() => {
+      expect(screen.getByText("Pick up some milk")).toBeInTheDocument();
+    });
+
+    const milk = screen.getByText("Pick up some milk");
+    const butter = screen.getByText("Pick up some butter");
+    const eggs = screen.getByText("Pick up some eggs");
+    const vegetables = screen.getByText("Pick up some vegetables");
+
+    // await userEvent.click(checkbox[1]);
+    // await userEvent.click(checkbox[2]);
 
     await userEvent.click(filterList[2]);
 
-    expect(checkbox[0]).not.toBeInTheDocument();
-    expect(checkbox[1]).toBeInTheDocument();
-    expect(checkbox[2]).toBeInTheDocument();
-    expect(checkbox[3]).not.toBeInTheDocument();
+    expect(milk).not.toBeInTheDocument();
+    expect(butter).toBeInTheDocument();
+    expect(eggs).toBeInTheDocument();
+    expect(vegetables).not.toBeInTheDocument();
   });
 
   test(`should the "All" filter work correctly`, async () => {
+    vi.mocked(todoApi.get).mockResolvedValueOnce({
+      data: [
+        { id: "0", text: "Pick up some milk", completed: false },
+        { id: "1", text: "Pick up some butter", completed: true },
+        { id: "2", text: "Pick up some eggs", completed: true },
+        { id: "3", text: "Pick up some vegetables", completed: false },
+      ],
+    });
     render(
       <TodoContextProvider>
         <TodoInput></TodoInput>
@@ -90,24 +138,33 @@ describe("TodoFilter", () => {
         <TodoFilter></TodoFilter>
       </TodoContextProvider>,
     );
-    const user = userEvent.setup();
+    // const user = userEvent.setup();
     const filterList = screen.getAllByRole("tab");
-    const input = screen.getByRole("textbox");
+    // const input = screen.getByRole("textbox");
 
-    await user.type(input, "Pick up some milk {Enter}");
-    await user.type(input, "Pick up some butter {Enter}");
-    await user.type(input, "Pick up some eggs {Enter}");
-    await user.type(input, "Pick up some vegetables {Enter}");
-    const checkbox = screen.getAllByRole("checkbox");
+    // await user.type(input, "Pick up some milk {Enter}");
+    // await user.type(input, "Pick up some butter {Enter}");
+    // await user.type(input, "Pick up some eggs {Enter}");
+    // await user.type(input, "Pick up some vegetables {Enter}");
+    // const checkbox = screen.getAllByRole("checkbox");
 
-    await userEvent.click(checkbox[2]);
-    await userEvent.click(checkbox[3]);
+    await waitFor(() => {
+      expect(screen.getByText("Pick up some milk")).toBeInTheDocument();
+    });
+
+    const milk = screen.getByText("Pick up some milk");
+    const butter = screen.getByText("Pick up some butter");
+    const eggs = screen.getByText("Pick up some eggs");
+    const vegetables = screen.getByText("Pick up some vegetables");
+
+    // await userEvent.click(checkbox[2]);
+    // await userEvent.click(checkbox[3]);
 
     await userEvent.click(filterList[0]);
 
-    expect(checkbox[0]).toBeInTheDocument();
-    expect(checkbox[1]).toBeInTheDocument();
-    expect(checkbox[2]).toBeInTheDocument();
-    expect(checkbox[3]).toBeInTheDocument();
+    expect(milk).toBeInTheDocument();
+    expect(butter).toBeInTheDocument();
+    expect(eggs).toBeInTheDocument();
+    expect(vegetables).toBeInTheDocument();
   });
 });

@@ -1,8 +1,10 @@
 import { TodoContextProvider } from "@/context/TodoContext";
-import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, test } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { TodoItem } from "./TodoItem";
 import userEvent from "@testing-library/user-event";
+
+vi.mock("@/api/todoApi");
 
 describe("TodoItem", () => {
   beforeEach(() => {
@@ -25,6 +27,8 @@ describe("TodoItem", () => {
     await user.tab();
     const button = screen.getByTestId("deleteCross");
 
-    expect(button).toBeInTheDocument();
+    await waitFor(() => {
+      expect(button).toBeInTheDocument();
+    });
   });
 });
