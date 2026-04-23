@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "josefin-sans";
-  src: url("/todo-app-eddy/assets/fonts/JosefinSans-VariableFont_wght.ttf")
+  src: url("/assets/fonts/JosefinSans-VariableFont_wght.ttf")
     format("truetype");
   font-display: swap;
   font-weight: 100 700;
@@ -38,10 +38,10 @@
   --color-purple-800: oklch(0.3547 0.0305 282.36);
 
   --font-josefin: "josefin-sans", sans-serif;
-  --background-image-light: url("/todo-app-eddy/assets/images/bg-desktop-light.jpg");
-  --background-image-dark: url("/todo-app-eddy/assets/images/bg-desktop-dark.jpg");
-  --background-image-light-mobile: url("/todo-app-eddy/assets/images/bg-mobile-light.jpg");
-  --background-image-dark-mobile: url("/todo-app-eddy/assets/images/bg-mobile-dark.jpg");
+  --background-image-light: url("/assets/images/bg-desktop-light.jpg");
+  --background-image-dark: url("/assets/images/bg-desktop-dark.jpg");
+  --background-image-light-mobile: url("/assets/images/bg-mobile-light.jpg");
+  --background-image-dark-mobile: url("/assets/images/bg-mobile-dark.jpg");
 
   --breakpoint-xs: 425px;
 }
