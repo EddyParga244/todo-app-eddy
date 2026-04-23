@@ -16,13 +16,13 @@ export const ToggleTheme = () => {
       {toggle ? (
         <img
           className="h-5 w-5"
-          src="/todo-app-eddy/assets/images/icon-moon.svg"
+          src="/assets/images/icon-moon.svg"
           alt=""
         />
       ) : (
         <img
           className="h-5 w-5"
-          src="/todo-app-eddy/assets/images/icon-sun.svg"
+          src="/assets/images/icon-sun.svg"
           alt=""
         />
       )}
