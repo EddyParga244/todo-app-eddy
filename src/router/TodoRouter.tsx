@@ -12,7 +12,7 @@ export const TodoRouter = () => {
   }
 
   return (
-    <BrowserRouter basename="/">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/login"  element={<LoginPage></LoginPage>}></Route>
         <Route path="/register"  element={<RegisterPage></RegisterPage>}></Route>
