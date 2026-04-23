@@ -76,7 +76,7 @@ export const TodoItem = ({ todo }: Props) => {
           aria-label={`Delete ${todo.text}`}
           data-testid="deleteCross"
         >
-          <img src="/todo-app-eddy/assets/images/icon-cross.svg" alt="" />
+          <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>
     </>
