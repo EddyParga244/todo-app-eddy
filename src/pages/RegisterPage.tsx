@@ -57,7 +57,10 @@ export const RegisterPage = () => {
               }}
             >
               <div className="flex flex-col gap-2">
-                <Label className="text-navy-850 dark:text-purple-100">
+                <Label
+                  htmlFor="email"
+                  className="text-navy-850 dark:text-purple-100"
+                >
                   Email
                 </Label>
                 <Input
@@ -81,7 +84,10 @@ export const RegisterPage = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label className="text-navy-850 dark:text-purple-100">
+                <Label
+                  htmlFor="password"
+                  className="text-navy-850 dark:text-purple-100"
+                >
                   Password
                 </Label>
                 <Input
