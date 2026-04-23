@@ -20,7 +20,7 @@ function Checkbox({
         data-slot="checkbox-indicator"
         className="grid place-content-center text-current transition-none [&>svg]:size-3.5"
       >
-        <img src="/todo-app-eddy/assets/images/icon-check.svg" alt="" className="w-3 h-3" />
+        <img src="/assets/images/icon-check.svg" alt="" className="w-3 h-3" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )
